@@ -29,6 +29,7 @@ onMounted(() => {
   const handleCredentialResponse = async (response) => {
     const responsePayload = JSON.parse(decodeCredential(response.credential))
     console.log('Google login success', responsePayload.name, responsePayload.picture)
+    router.push({path: '/account'})
   }
 
 </script>
