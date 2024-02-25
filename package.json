@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "mock": "json-server mock/db.json --port 3002",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
@@ -22,6 +23,7 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
+    "json-server": "^1.0.0-alpha.23",
     "prettier": "^3.0.3",
     "vite": "^5.0.11"
   }
