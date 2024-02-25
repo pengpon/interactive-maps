@@ -1,4 +1,5 @@
 <script setup>
+import InteractiveMap from '@/components/InteractiveMap.vue'
 import { useLocationStore } from '../stores/location'
 import { storeToRefs } from "pinia"
 
@@ -13,6 +14,7 @@ const getPoint = async() => {
 <template>
   <main>
     首頁
+    <InteractiveMap />
     <button @click="getPoint">取得附近都更點</button>
     <div>總計：{{stopLocations.length}}站</div>
   </main>
