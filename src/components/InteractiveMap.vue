@@ -7,6 +7,8 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import 'leaflet.markercluster'
 
 const initialMap = shallowRef(null);
+let markers = L.markerClusterGroup({ showCoverageOnHover: false })
+let markerList = {}
 
 onMounted(() => {
   // 初始化地圖
@@ -34,23 +36,25 @@ const addUserLocation = (location) => {
 
 // location cluster
 const addStopMarker = (data) => {
-  let markers = L.markerClusterGroup({
-    showCoverageOnHover: false
-  }).addTo((initialMap.value))
-
-  for (let i=0; i < data.length; i++) {
-    markers.addLayer(
-      L.marker([data[i].latitude, data[i].longitude])
-        .bindPopup(`${data[i].stop_name} (${data[i].name})`)
-    )
-
-    initialMap.value.addLayer(markers)
+  for (let i = 0; i < data.length; i++) {
+    let marker = L.marker([data[i].latitude, data[i].longitude])
+    marker.bindPopup(`${data[i].stop_name} (${data[i].name})`)
+    markers.addLayer(marker)
+    markerList[data[i].id] = marker
   }
+  initialMap.value.addLayer(markers)
+}
+
+const zoomToShow = (targetId) => {
+  markers.zoomToShowLayer(markerList[targetId], function () {
+    markerList[targetId].openPopup();
+  })
 }
 
 defineExpose({
   addUserLocation,
-  addStopMarker
+  addStopMarker,
+  zoomToShow
 })
 </script>
 

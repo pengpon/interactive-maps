@@ -3,6 +3,7 @@ import { ref, onMounted, watch } from 'vue';
 import { useLocationStore } from '../stores/location'
 import { storeToRefs } from 'pinia'
 import InteractiveMap from '@/components/InteractiveMap.vue'
+import LocationTable from '@/components/LocationTable.vue'
 
 const { userLocation, stopLocations } = storeToRefs(useLocationStore())
 const locationStore = useLocationStore()
@@ -22,11 +23,16 @@ watch(userLocation, async() => {
   // add stop marker
   map.value.addStopMarker(stopLocations.value)
 })
+
+const mapZoomToShow = (targetId) => {
+  map.value.zoomToShow(targetId)
+}
 </script>
 
 <template>
   <main>
     首頁
     <InteractiveMap ref="map" />
+    <LocationTable :data="stopLocations" @mapZoomToShow="mapZoomToShow"/>
   </main>
 </template>
