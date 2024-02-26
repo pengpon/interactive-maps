@@ -1,21 +1,32 @@
 <script setup>
-import InteractiveMap from '@/components/InteractiveMap.vue'
+import { ref, onMounted, watch } from 'vue';
 import { useLocationStore } from '../stores/location'
-import { storeToRefs } from "pinia"
+import { storeToRefs } from 'pinia'
+import InteractiveMap from '@/components/InteractiveMap.vue'
 
-const { stopLocations } = storeToRefs(useLocationStore())
+const { userLocation, stopLocations } = storeToRefs(useLocationStore())
 const locationStore = useLocationStore()
+const map = ref(null)
 
-const getPoint = async() => {
+onMounted(() => {
+  locationStore.getUserPosition()
+})
+
+watch(userLocation, async() => {
+  // add user pin
+  map.value.addUserLocation(userLocation.value)
+
+  // get cal distance
   await locationStore.fetchStopLocations()
-}
+
+  // add stop marker
+  map.value.addStopMarker(stopLocations.value)
+})
 </script>
 
 <template>
   <main>
     首頁
-    <InteractiveMap />
-    <button @click="getPoint">取得附近都更點</button>
-    <div>總計：{{stopLocations.length}}站</div>
+    <InteractiveMap ref="map" />
   </main>
 </template>
