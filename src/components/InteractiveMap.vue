@@ -6,7 +6,9 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import 'leaflet.markercluster'
 
-const initialMap = shallowRef(null);
+const initialMap = shallowRef(null)
+const geoJson = shallowRef(null)
+const info = L.control();
 let markers = L.markerClusterGroup({ showCoverageOnHover: false })
 let markerList = {}
 
@@ -51,10 +53,61 @@ const zoomToShow = (targetId) => {
   })
 }
 
+const showAreaInfoOnHover = () => {
+  info.onAdd = function () {
+    console.log(this)
+    this._div = L.DomUtil.create('div', 'info')
+    this.update();
+    return this._div;
+  };
+
+  info.update = function (props) {
+    const contents = props ? `<b>名稱：${props.TxtMemo}</b>/${props.分區}<br/>面積：${props.SHAPE_Area} m<sup>2</sup>` : 'Hover over a area';
+    this._div.innerHTML = `<p>--- 都更區資訊 ---</p>${contents}`;
+  };
+  info.addTo(initialMap.value)
+}
+
+const highlightFeature = (e) => {
+  const layer = e.target;
+  layer.setStyle({
+    weight: 5,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.7
+  });
+
+  layer.bringToFront();
+  info.update(layer.feature.properties);
+}
+
+const resetHighlight = (e) => {
+  geoJson.value.resetStyle(e.target);
+    info.update();
+}
+
+const zoomToFeature = (e) => {
+  initialMap.value.fitBounds(e.target.getBounds());
+}
+
+const onEachFeature = (feature, layer) => {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+    click: zoomToFeature
+  });
+}
+
+const addGeoJson = (data) => {
+  geoJson.value = L.geoJson(data, { onEachFeature }).addTo(initialMap.value);
+  showAreaInfoOnHover()
+}
+
 defineExpose({
   addUserLocation,
   addStopMarker,
-  zoomToShow
+  zoomToShow,
+  addGeoJson
 })
 </script>
 
@@ -64,8 +117,15 @@ defineExpose({
   </div>
 </template>
 
-<style scoped>
+<style>
 #map {
   height: 80vh;
+}
+
+.info {
+  background-color: #fff;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 10px;
 }
 </style>
