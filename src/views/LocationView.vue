@@ -5,8 +5,8 @@ import { storeToRefs } from 'pinia'
 import InteractiveMap from '@/components/InteractiveMap.vue'
 import LocationTable from '@/components/LocationTable.vue'
 
-const { userLocation, stopLocations } = storeToRefs(useLocationStore())
 const locationStore = useLocationStore()
+const { userLocation, stopLocations } = storeToRefs(useLocationStore())
 const map = ref(null)
 
 onMounted(() => {
