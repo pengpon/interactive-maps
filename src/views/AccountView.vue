@@ -1,17 +1,19 @@
 <script setup>
 import FacebookLogin from '@/components/FacebookLogin.vue'
 import router from '@/router';
+import { useAuthStore } from '@/stores/auth'
 
+const authStore = useAuthStore()
 const onSuccess = (response) => {
   // 取得 token 和 info
-  console.log(response, 'Facebook login success' )
+  authStore.isFacebookAuthenticated = true
+  authStore.avatar.facebook = response.authInfo.picture.data.url
   router.push({path: '/'})
 }
 
 const onFailure = (error) => {
   // 登入失敗
-  console.log(error)
-
+  console.error(error)
 }
 </script>
 <template>

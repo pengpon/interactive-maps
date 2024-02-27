@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { decodeCredential } from '@/utils'
 import { useRouter } from 'vue-router'
+import { decodeCredential } from '@/utils'
+import { useAuthStore } from '@/stores/auth'
 
+const authStore = useAuthStore()
 const googleLoginBtn = ref(null)
 const router = useRouter()
 
@@ -12,6 +14,7 @@ onMounted(() => {
   window.google.accounts.id.initialize({
     client_id: gClientId,
     callback: handleCredentialResponse,
+    itp_support: true,
   })
 
   window.google.accounts.id.renderButton(
@@ -28,7 +31,9 @@ onMounted(() => {
 
   const handleCredentialResponse = async (response) => {
     const responsePayload = JSON.parse(decodeCredential(response.credential))
-    console.log('Google login success', responsePayload.name, responsePayload.picture)
+    authStore.name = responsePayload.name
+    authStore.avatar.google = responsePayload.picture
+    authStore.isGoogleAuthenticated = true
     router.push({path: '/account'})
   }
 
@@ -36,7 +41,6 @@ onMounted(() => {
 
 <template>
   <div>
-    登入
     <div ref="googleLoginBtn"></div>
   </div>
 </template>
