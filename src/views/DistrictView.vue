@@ -36,11 +36,32 @@ const changeDistrict = (value) => {
 </script>
 
 <template>
-  <SelectElement
-    text="行政區"
-		:options="districtOptions"
-    :selected="searchDistrict"
-		@changeValue="changeDistrict"
-	/>
-  <InteractiveMap ref="map"/>
+  <main>
+    <SelectElement
+      text="請選擇查詢的區域："
+      :options="districtOptions"
+      :selected="searchDistrict"
+      @changeValue="changeDistrict"
+      class="select-container"
+    />
+    <InteractiveMap
+      ref="map"
+      class="district-map-container"
+    />
+  </main>
 </template>
+
+<style>
+.select-container {
+  margin-bottom: 10px;
+}
+.district-map-container #map {
+  width: 80vw;
+  height: 80vh;
+  margin: 0 auto 20px;
+}
+
+.select {
+  width: 80vw;
+}
+</style>

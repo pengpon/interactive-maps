@@ -41,3 +41,11 @@ const onMarkerSelected = (id) => {
     <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
   </main>
 </template>
+
+<style>
+.location-map-container #map {
+  width: 80vw;
+  height: 50vh;
+  margin: 0 auto 20px;
+}
+</style>
