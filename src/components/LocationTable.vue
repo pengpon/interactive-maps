@@ -1,10 +1,15 @@
 <template>
+  <div class="search-container">
+    <span class="text">搜尋站名/名稱：</span>
+    <input type="text" class="search" v-model="searchValue">
+  </div>
   <EasyDataTable
     :headers="headers"
     :items="data"
     :table-height=100
     fixed-header
-    @click-row="showLocation"
+    :search-field="searchField"
+    :search-value="searchValue"
   >
     <template #empty-message>暫無資料</template>
   </EasyDataTable>
@@ -25,7 +30,8 @@ const emit = defineEmits(['mapFlyTo'])
 // create a ref to store prop value
 const data = ref(props.data)
 
-// watch for changes
+const searchField = ['name', 'stop_name']
+const searchValue = ref();
 watch(() => props.data, (newValue) => {
   data.value = newValue
 })
@@ -45,5 +51,20 @@ const showLocation = (item) => {
 };
 </script>
 
-<style scoped>
+.search-container {
+  margin-bottom: 10px;
+}
+
+.search-container .text {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.search-container .search {
+  color: var(--gray-dark);
+  border: 1px solid var(--gray-light);
+	border-radius: 4px;
+  height: 30px;
+}
+
 </style>
