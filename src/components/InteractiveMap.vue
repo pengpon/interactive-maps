@@ -12,9 +12,22 @@ const info = L.control();
 let markers = L.markerClusterGroup({ showCoverageOnHover: false })
 let markerList = {}
 
+const props = defineProps({
+  center: {
+    type: Array,
+    default: () => [25.088321, 121.537219]
+  },
+  zoom: {
+    type: Number,
+    default: 11
+  }
+})
+
+const emit = defineEmits(['onMarkerSelected'])
+
 onMounted(() => {
   // 初始化地圖
-  initialMap.value = L.map('map').setView([25.088321, 121.537219], 11)
+  initialMap.value = L.map('map').setView(props.center, props.zoom)
 
   // 使用 tile layer (openstreetmap)
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -40,10 +53,16 @@ const addUserLocation = (location) => {
 const addStopMarker = (data) => {
   for (let i = 0; i < data.length; i++) {
     let marker = L.marker([data[i].latitude, data[i].longitude])
-    marker.bindPopup(`${data[i].stop_name} (${data[i].name})`)
+    marker.bindPopup(`(${data[i].id}) ${data[i].stop_name} (${data[i].name})`)
     markers.addLayer(marker)
     markerList[data[i].id] = marker
   }
+
+  // emit id 供列表顯示 marker 資訊
+  markers.on('popupopen', function (e) {
+    let makerId = e.popup._content.match(/(?<=^\()\d+(?=\))/)[0]
+    emit('onMarkerSelected', Number(makerId))
+  })
   initialMap.value.addLayer(markers)
 }
 
@@ -55,7 +74,6 @@ const zoomToShow = (targetId) => {
 
 const showAreaInfoOnHover = () => {
   info.onAdd = function () {
-    console.log(this)
     this._div = L.DomUtil.create('div', 'info')
     this.update();
     return this._div;
@@ -101,6 +119,7 @@ const onEachFeature = (feature, layer) => {
 const addGeoJson = (data) => {
   geoJson.value = L.geoJson(data, { onEachFeature }).addTo(initialMap.value);
   showAreaInfoOnHover()
+  initialMap.value.fitBounds(geoJson.value.getBounds());
 }
 
 defineExpose({
@@ -118,10 +137,6 @@ defineExpose({
 </template>
 
 <style>
-#map {
-  height: 80vh;
-}
-
 .info {
   background-color: #fff;
   font-size: 16px;

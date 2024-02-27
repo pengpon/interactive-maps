@@ -9,6 +9,8 @@ export const useLocationStore = defineStore('location', () => {
   ])
   const userLocation = ref([])
   const stopLocations = ref([])
+  const selectedLocationId = ref(null)
+  const selectedLocationIndex = ref(null)
 
   const fetchStopLocations = async () => {
     let sendData = {
@@ -18,7 +20,7 @@ export const useLocationStore = defineStore('location', () => {
 
     try {
       // production: POST; dev: GET
-      const data = await api.post(`/calc-distance`, sendData)
+      const data = await api.get(`/calc-distance`, sendData)
       stopLocations.value = data.result
     } catch (error) {
       console.error(error)
@@ -42,5 +44,5 @@ export const useLocationStore = defineStore('location', () => {
     if (!navigator.geolocation) userLocation.value = defaultUserPosition.value
   }
 
-  return { userLocation, stopLocations, fetchStopLocations, getUserPosition }
+  return { userLocation, stopLocations, selectedLocationId, selectedLocationIndex, fetchStopLocations, getUserPosition }
 })

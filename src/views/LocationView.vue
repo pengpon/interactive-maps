@@ -4,9 +4,8 @@ import { useLocationStore } from '../stores/location'
 import { storeToRefs } from 'pinia'
 import InteractiveMap from '@/components/InteractiveMap.vue'
 import LocationTable from '@/components/LocationTable.vue'
-
 const locationStore = useLocationStore()
-const { userLocation, stopLocations } = storeToRefs(useLocationStore())
+const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } = storeToRefs(useLocationStore())
 const map = ref(null)
 
 onMounted(() => {
@@ -24,15 +23,21 @@ watch(userLocation, async() => {
   map.value.addStopMarker(stopLocations.value)
 })
 
-const mapZoomToShow = (targetId) => {
+const onRowSelected = (targetIndex, targetId) => {
   map.value.zoomToShow(targetId)
+  selectedLocationId.value = targetId
+  selectedLocationIndex.value = targetIndex
+}
+
+const onMarkerSelected = (id) => {
+  selectedLocationId.value = id
+  selectedLocationIndex.value = stopLocations.value.findIndex(ele => ele.id === id)
 }
 </script>
 
 <template>
   <main>
-    首頁
-    <InteractiveMap ref="map" />
-    <LocationTable :data="stopLocations" @mapZoomToShow="mapZoomToShow"/>
+    <InteractiveMap ref="map" class="location-map-container" @onMarkerSelected="onMarkerSelected"/>
+    <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
   </main>
 </template>
