@@ -1,8 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LocationView from '../views/LocationView.vue'
-import DistrictView from '../views/DistrictView.vue'
-import AccountView from '../views/AccountView.vue'
-import LoginView from '../views/LoginView.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
+import BlankLayout from '@/layouts/BlankLayout.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -11,22 +9,27 @@ const router = createRouter({
     {
       path: '/',
       name: 'location',
-      component: LocationView
+      meta: { layout: AppLayout },
+      component: () => import('@/views/LocationView.vue'),
+
     },
     {
       path: '/district',
       name: 'district',
-      component: DistrictView
+      meta: { layout: AppLayout },
+      component: () => import('@/views/DistrictView.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      meta: { layout: BlankLayout },
+      component: () => import('@/views/LoginView.vue'),
     },
     {
       path: '/account',
       name: 'account',
-      component: AccountView
+      meta: { layout: BlankLayout },
+      component: () => import('@/views/AccountView.vue'),
     },
   ]
 })
