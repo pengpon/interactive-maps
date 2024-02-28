@@ -1,9 +1,12 @@
 @import './base.css';
 
 #app {
+  overflow: hidden;
   margin: 0 auto;
-  padding-top: 10vh;
   font-weight: normal;
+  font-family: Inter, "Ming Light", "Microsoft JhengHei", PingFang, Arial,
+    sans-serif, serif;
+  background-color: var(--nude);
 }
 
 a,

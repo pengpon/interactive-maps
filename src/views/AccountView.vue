@@ -1,7 +1,8 @@
 <script setup>
 import FacebookLogin from '@/components/FacebookLogin.vue'
-import router from '@/router';
+import router from '@/router'
 import { useAuthStore } from '@/stores/auth'
+import logoFb from '@/assets/logo-fb.png'
 
 const authStore = useAuthStore()
 const onSuccess = (response) => {
@@ -17,7 +18,8 @@ const onFailure = (error) => {
 }
 </script>
 <template>
-  <div>social
+  <main class="main">
+    <p class="description">連結 Facebook 帳號</p>
     <FacebookLogin
       v-slot="fbLogin"
       app-id="381380281309079"
@@ -29,7 +31,48 @@ const onFailure = (error) => {
       <button
         @click="fbLogin.initFBLogin"
         class="fb-button"
-      >Continue with Facebook</button>
+      >
+      <img class="logo" :src="logoFb" alt="facebook-logo">
+      Continue with Facebook</button>
     </FacebookLogin>
-  </div>
+  </main>
 </template>
+
+<style scoped>
+.main {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.description {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--black-dark);
+}
+
+.fb-button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--white);
+  background-color: #1278F2;
+  cursor: pointer;
+}
+
+
+.fb-button .logo {
+  width: 20px;
+  border-radius: 50%;
+  background-color: var(--white);
+}
+</style>
