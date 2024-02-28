@@ -1,11 +1,14 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
+import { useAuthStore } from '../stores/auth'
 import { useLocationStore } from '../stores/location'
 import { storeToRefs } from 'pinia'
 import InteractiveMap from '@/components/InteractiveMap.vue'
 import LocationTable from '@/components/LocationTable.vue'
+
 const locationStore = useLocationStore()
 const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } = storeToRefs(useLocationStore())
+const { avatar } = storeToRefs(useAuthStore())
 const map = ref(null)
 
 onMounted(() => {
@@ -37,7 +40,7 @@ const onMarkerSelected = (id) => {
 
 <template>
   <main>
-    <InteractiveMap ref="map" class="location-map-container" @onMarkerSelected="onMarkerSelected"/>
+    <InteractiveMap ref="map" class="location-map-container" @onMarkerSelected="onMarkerSelected" :userAvatar="avatar"/>
     <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
   </main>
 </template>

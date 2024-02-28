@@ -20,6 +20,9 @@ const props = defineProps({
   zoom: {
     type: Number,
     default: 11
+  },
+  userAvatar: {
+    type: Object,
   }
 })
 
@@ -41,12 +44,21 @@ const addUserLocation = (location) => {
   let pin = L.icon({
     iconUrl: './runway.png',
     iconSize: [50, 50],
-    iconAnchor:   [25, 50],
+    iconAnchor: [25, 50],
   })
 
-  L.marker(location, {icon: pin})
-    .addTo(initialMap.value).bindTooltip('I am here')
-
+  const userMarker = L.marker(location, {icon: pin, draggable: true})
+  userMarker.addTo(initialMap.value).bindTooltip(`
+    <div style="width:40px">
+      <img style="width:20px;border-radius:50%" src="${props.userAvatar.google}"/>
+      <img
+        style="width:20px;border-radius:50%"
+        src="${props.userAvatar.facebook}"
+        onerror="this.onerror=null;this.src='./user404.png';"
+      />
+    </div>
+    `
+  )
 }
 
 // location cluster

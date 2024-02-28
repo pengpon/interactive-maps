@@ -12,5 +12,11 @@ export const useAuthStore = defineStore('auth', () => {
   const isFacebookAuthenticated = ref(false)
   const isAuthenticated = computed(() => isGoogleAuthenticated.value && isFacebookAuthenticated.value )
 
-  return { name, avatar, isGoogleAuthenticated, isFacebookAuthenticated, isAuthenticated }
+  return {
+    name,
+    avatar,
+    isGoogleAuthenticated,
+    isFacebookAuthenticated,
+    isAuthenticated
+  }
 })
