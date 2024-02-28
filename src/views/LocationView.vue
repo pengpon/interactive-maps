@@ -10,6 +10,7 @@ const locationStore = useLocationStore()
 const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } = storeToRefs(useLocationStore())
 const { avatar } = storeToRefs(useAuthStore())
 const map = ref(null)
+let isLoading = ref(true)
 
 onMounted(() => {
   locationStore.getUserPosition()
@@ -24,6 +25,7 @@ watch(userLocation, async() => {
 
   // add stop marker
   map.value.addStopMarker(stopLocations.value)
+  isLoading.value = false
 })
 
 const onRowSelected = (targetIndex, targetId) => {
@@ -39,8 +41,15 @@ const onMarkerSelected = (id) => {
 </script>
 
 <template>
-  <main>
-    <InteractiveMap ref="map" class="location-map-container" @onMarkerSelected="onMarkerSelected" :userAvatar="avatar"/>
+  <main >
+    <Transition>
+      <SpinnerOverlay v-show="isLoading"/>
+    </Transition>
+    <InteractiveMap
+      ref="map"
+      class="location-map-container"
+      @onMarkerSelected="onMarkerSelected"
+      :userAvatar="avatar"/>
     <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
   </main>
 </template>
@@ -50,5 +59,15 @@ const onMarkerSelected = (id) => {
   width: 80vw;
   height: 50vh;
   margin: 0 auto 20px;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
