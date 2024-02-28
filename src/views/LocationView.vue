@@ -38,6 +38,15 @@ const onMarkerSelected = (id) => {
   selectedLocationId.value = id
   selectedLocationIndex.value = stopLocations.value.findIndex(ele => ele.id === id)
 }
+
+const clearUserLocation = () => {
+  locationStore.$reset()
+}
+
+const onUserLocationChange = (position) => {
+  userLocation.value = position
+}
+
 </script>
 
 <template>
@@ -49,6 +58,8 @@ const onMarkerSelected = (id) => {
       ref="map"
       class="location-map-container"
       @onMarkerSelected="onMarkerSelected"
+      @onUserLocationChange="onUserLocationChange"
+      @clearUserLocation="clearUserLocation"
       :userAvatar="avatar"/>
     <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
   </main>

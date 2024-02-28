@@ -49,6 +49,7 @@ watch(() => props.data, (newValue) => {
 })
 
 watch(() => props.seletedIndex, (newIndex, oldIndex) => {
+  if (newIndex === null) return
   if (oldIndex !== null) data.value[oldIndex].isActive = false
   data.value[newIndex].isActive = true
 })

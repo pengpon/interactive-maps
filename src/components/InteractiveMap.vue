@@ -1,5 +1,5 @@
 <script setup>
-import { shallowRef, onMounted } from 'vue'
+import { ref, shallowRef, onMounted } from 'vue'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
@@ -11,6 +11,8 @@ const geoJson = shallowRef(null)
 const info = L.control();
 let markers = L.markerClusterGroup({ showCoverageOnHover: false })
 let markerList = {}
+let userMarker = ref(null)
+let hasSetUserLocation = false
 
 const props = defineProps({
   center: {
@@ -26,7 +28,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['onMarkerSelected'])
+const emit = defineEmits(['onMarkerSelected', 'onUserLocationChange', 'clearUserLocation'])
 
 onMounted(() => {
   // 初始化地圖
@@ -37,6 +39,8 @@ onMounted(() => {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(initialMap.value)
+
+  initialMap.value.on('click', onMapClick);
 })
 
 const addUserLocation = (location) => {
@@ -46,9 +50,13 @@ const addUserLocation = (location) => {
     iconSize: [50, 50],
     iconAnchor: [25, 50],
   })
-
-  const userMarker = L.marker(location, {icon: pin, draggable: true})
-  userMarker.addTo(initialMap.value).bindTooltip(`
+  hasSetUserLocation = true
+  if (userMarker.value) {
+    userMarker.value.setLatLng(location)
+    return
+  }
+  userMarker.value = L.marker(location, {icon: pin, draggable: true})
+  userMarker.value.addTo(initialMap.value).bindTooltip(`
     <div style="width:40px">
       <img style="width:20px;border-radius:50%" src="${props.userAvatar.google}"/>
       <img
@@ -59,6 +67,20 @@ const addUserLocation = (location) => {
     </div>
     `
   )
+}
+const onMapClick = (e) => {
+  // 清空使用者位置
+  if (hasSetUserLocation) {
+    userMarker.value.setLatLng([0,0]);
+    markers.clearLayers()
+    hasSetUserLocation = false
+    emit('clearUserLocation')
+    return
+  }
+  // 放置使用者新的位置
+  let position = [ e.latlng.lat, e.latlng.lng ]
+  addUserLocation(position)
+  emit('onUserLocationChange', position)
 }
 
 // location cluster
@@ -71,7 +93,7 @@ const addStopMarker = (data) => {
   }
 
   // emit id 供列表顯示 marker 資訊
-  markers.on('popupopen', function (e) {
+  markers.on('popupopen', function(e) {
     let makerId = e.popup._content.match(/(?<=^\()\d+(?=\))/)[0]
     emit('onMarkerSelected', Number(makerId))
   })

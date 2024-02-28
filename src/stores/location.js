@@ -44,5 +44,19 @@ export const useLocationStore = defineStore('location', () => {
     if (!navigator.geolocation) userLocation.value = defaultUserPosition.value
   }
 
-  return { userLocation, stopLocations, selectedLocationId, selectedLocationIndex, fetchStopLocations, getUserPosition }
+  const $reset = () => {
+    selectedLocationId.value = null
+    selectedLocationIndex.value = null
+    stopLocations.value = []
+  }
+
+  return {
+    userLocation,
+    stopLocations,
+    selectedLocationId,
+    selectedLocationIndex,
+    fetchStopLocations,
+    getUserPosition,
+    $reset,
+  }
 })
