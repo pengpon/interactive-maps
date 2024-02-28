@@ -39,8 +39,6 @@ onMounted(() => {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   }).addTo(initialMap.value)
-
-  initialMap.value.on('click', onMapClick);
 })
 
 const addUserLocation = (location) => {
@@ -66,7 +64,8 @@ const addUserLocation = (location) => {
       />
     </div>
     `
-  )
+    )
+    initialMap.value.on('click', onMapClick);
 }
 const onMapClick = (e) => {
   // 清空使用者位置

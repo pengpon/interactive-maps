@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/service/api'
+import { statusToast } from '@/helpers/swal'
 
 export const useLocationStore = defineStore('location', () => {
   const defaultUserPosition = ref([
@@ -24,6 +25,7 @@ export const useLocationStore = defineStore('location', () => {
       stopLocations.value = data.result
     } catch (error) {
       console.error(error)
+      statusToast('error', 'error', `無法取得附近都更地點`, 3000)
     }
   }
 

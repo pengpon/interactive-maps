@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import api from '@/service/api'
+import { statusToast } from '@/helpers/swal'
 
 export const useDistrictStore = defineStore('district', () => {
   const searchDistrict = ref('tucheng')
@@ -13,6 +14,7 @@ export const useDistrictStore = defineStore('district', () => {
       regionInfos.value = data.result
     } catch (error) {
       console.error(error)
+      statusToast('error', 'error', `無法取得都更區域資料`, 3000)
     }
   }
 

@@ -1,31 +1,34 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, onUnmounted } from 'vue';
 import { useAuthStore } from '../stores/auth'
 import { useLocationStore } from '../stores/location'
 import { storeToRefs } from 'pinia'
 import InteractiveMap from '@/components/InteractiveMap.vue'
 import LocationTable from '@/components/LocationTable.vue'
+import { statusToast } from '@/helpers/swal'
 
 const locationStore = useLocationStore()
 const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } = storeToRefs(useLocationStore())
 const { avatar } = storeToRefs(useAuthStore())
 const map = ref(null)
-let isLoading = ref(true)
+let isLoaded = ref(false)
 
 onMounted(() => {
   locationStore.getUserPosition()
 })
 
+onUnmounted(() => {
+  userLocation.value = []
+})
+
 watch(userLocation, async() => {
   // add user pin
   map.value.addUserLocation(userLocation.value)
-
   // get cal distance
   await locationStore.fetchStopLocations()
-
   // add stop marker
-  map.value.addStopMarker(stopLocations.value)
-  isLoading.value = false
+    map.value.addStopMarker(stopLocations.value)
+    isLoaded.value = true
 })
 
 const onRowSelected = (targetIndex, targetId) => {
@@ -40,10 +43,12 @@ const onMarkerSelected = (id) => {
 }
 
 const clearUserLocation = () => {
+  statusToast('success', 'info', `點擊地圖可重新設置地點`, 3000)
   locationStore.$reset()
 }
 
 const onUserLocationChange = (position) => {
+  statusToast('success', 'info', `已設置地點`, 3000)
   userLocation.value = position
 }
 
@@ -52,7 +57,7 @@ const onUserLocationChange = (position) => {
 <template>
   <main >
     <Transition>
-      <SpinnerOverlay v-show="isLoading"/>
+      <SpinnerOverlay v-show="!isLoaded"/>
     </Transition>
     <InteractiveMap
       ref="map"

@@ -20,9 +20,11 @@ const setOptionDisabled = (data) => {
   })
 }
 let districtOptions = setOptionDisabled(convertToSelectOption(NEW_TAIPEI_CITY))
+let isLoaded = ref(false)
 
 onMounted(() => {
   districtStore.fetchRegionInfos()
+  isLoaded.value = true
 })
 
 watch(regionInfos, () => {
@@ -37,6 +39,9 @@ const changeDistrict = (value) => {
 
 <template>
   <main>
+    <Transition>
+      <SpinnerOverlay v-show="!isLoaded"/>
+    </Transition>
     <SelectElement
       text="請選擇查詢的區域："
       :options="districtOptions"
@@ -63,5 +68,15 @@ const changeDistrict = (value) => {
 
 .select {
   width: 80vw;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
