@@ -53,7 +53,7 @@ const addUserLocation = (location) => {
     userMarker.value.setLatLng(location)
     return
   }
-  userMarker.value = L.marker(location, {icon: pin, draggable: true})
+  userMarker.value = L.marker(location, {icon: pin})
   userMarker.value.addTo(initialMap.value).bindTooltip(`
     <div style="width:40px">
       <img style="width:20px;border-radius:50%" src="${props.userAvatar.google}"/>
@@ -84,8 +84,18 @@ const onMapClick = (e) => {
 
 // location cluster
 const addStopMarker = (data) => {
+  let icon = L.icon({
+    iconUrl: './marker-icon.png',
+    iconRetinaUrl: './marker-icon-2x.png',
+    shadowUrl: './marker-shadow.png',
+    iiconSize:    [25, 41],
+		iconAnchor:  [12, 41],
+		popupAnchor: [1, -34],
+		tooltipAnchor: [16, -28],
+		shadowSize:  [41, 41]
+  })
   for (let i = 0; i < data.length; i++) {
-    let marker = L.marker([data[i].latitude, data[i].longitude])
+    let marker = L.marker([data[i].latitude, data[i].longitude], { icon: icon})
     marker.bindPopup(`(${data[i].id}) ${data[i].stop_name} (${data[i].name})`)
     markers.addLayer(marker)
     markerList[data[i].id] = marker
