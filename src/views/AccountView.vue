@@ -41,7 +41,7 @@ const handleSkip = () => {
     <div class="action-container">
       <FacebookLogin
         v-slot="fbLogin"
-        app-id="381380281309079"
+        app-id="360871266778329"
         scope="public_profile"
         fields="id,name,picture"
         @onSuccess="onSuccess"
