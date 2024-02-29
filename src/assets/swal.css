@@ -55,3 +55,75 @@
 .swal2-backdrop-show:has(.toast--loading) {
   width: 100% !important;
 }
+
+
+/* -------------------- Dialog -------------------- */
+.dialog {
+  width: 400px !important;
+  padding: 40px !important;
+  color: #4d4d4d !important;
+  border-radius: 20px !important;
+}
+
+.dialog-title {
+  padding: 0 !important;
+  margin-bottom: 12px !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 32px !important;
+}
+
+.dialog-text {
+  padding: 0 !important;
+  margin: 0 0 36px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 20px !important;
+}
+
+.dialog-btn {
+  width: 50% !important;
+  padding: 12px 16px !important;
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  border-radius: 12px !important;
+}
+
+.dialog-btn.confirm {
+  margin-right: 16px !important;
+  font-weight: 600 !important;
+  color: var(--white) !important;
+  background-color: var(--primary-dark-1) !important;
+  border: 1px solid transparent !important;
+}
+
+.dialog-btn.confirm:hover {
+  background-color: var(--primary-light-1) !important;
+}
+
+.dialog-btn.cancel {
+  font-weight: 500;
+  color: #4d4d4d !important;
+  background-color: var(--white) !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+.dialog-btn.cancel:hover {
+  color: #7f7f7f !important;
+  background-color: #f7f7f7 !important;
+}
+
+.dialog-btn.confirm:hover, .dialog-btn.cancel:hover {
+  background-image: none !important;
+}
+
+.dialog-btn.confirm:focus, .dialog-btn.cancel:focus {
+  box-shadow: unset !important;
+}
+
+.swal2-actions {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  margin: 0 !important;
+}
