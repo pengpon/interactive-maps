@@ -15,9 +15,10 @@ let userMarker = ref(null)
 let hasSetUserLocation = false
 
 const props = defineProps({
+  // 預設地圖中心: 總統府
   center: {
     type: Array,
-    default: () => [25.088321, 121.537219]
+    default: () => [25.040310154316238, 121.51190579542796]
   },
   zoom: {
     type: Number,
@@ -86,7 +87,7 @@ const onMapClick = (e) => {
 const addStopMarker = (data) => {
   let icon = L.icon({
     iconUrl: './marker-icon.png',
-    iconRetinaUrl: './marker-icon-2x.png',
+    // iconRetinaUrl: './marker-icon-2x.png',
     shadowUrl: './marker-shadow.png',
     iiconSize:    [25, 41],
 		iconAnchor:  [12, 41],
