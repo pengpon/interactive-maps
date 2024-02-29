@@ -14,29 +14,26 @@ onMounted(() => {
   window.google.accounts.id.initialize({
     client_id: gClientId,
     callback: handleCredentialResponse,
-    itp_support: true,
+    itp_support: true
   })
 
-  window.google.accounts.id.renderButton(
-    googleLoginBtn.value, {
-      text: 'continue_with',  // signup_with | continue_with | signin
-      size: 'large',          // small | medium | large
-      theme: 'outline',       // filled_black | filled_blue | outline
-      logo_alignment: 'left', // center | left
-      shape: 'pill',
-      type: 'standard'
-    }
-  )
+  window.google.accounts.id.renderButton(googleLoginBtn.value, {
+    text: 'continue_with', // signup_with | continue_with | signin
+    size: 'large', // small | medium | large
+    theme: 'outline', // filled_black | filled_blue | outline
+    logo_alignment: 'left', // center | left
+    shape: 'pill',
+    type: 'standard'
+  })
 })
 
-  const handleCredentialResponse = async (response) => {
-    const responsePayload = JSON.parse(decodeCredential(response.credential))
-    authStore.name = responsePayload.name
-    authStore.avatar.google = responsePayload.picture
-    authStore.isGoogleAuthenticated = true
-    router.push({path: '/account'})
-  }
-
+const handleCredentialResponse = async (response) => {
+  const responsePayload = JSON.parse(decodeCredential(response.credential))
+  authStore.name = responsePayload.name
+  authStore.avatar.google = responsePayload.picture
+  authStore.isGoogleAuthenticated = true
+  router.push({ path: '/account' })
+}
 </script>
 
 <template>
@@ -45,5 +42,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

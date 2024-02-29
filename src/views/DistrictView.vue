@@ -16,7 +16,7 @@ const setOptionDisabled = (data) => {
   // set option disabled
   return data.map((item) => {
     if (allowOptions.includes(item.value)) return item
-    return {...item, 'disabled': true}
+    return { ...item, disabled: true }
   })
 }
 let districtOptions = setOptionDisabled(convertToSelectOption(NEW_TAIPEI_CITY))
@@ -40,7 +40,7 @@ const changeDistrict = (value) => {
 <template>
   <main>
     <Transition>
-      <SpinnerOverlay v-show="!isLoaded"/>
+      <SpinnerOverlay v-show="!isLoaded" />
     </Transition>
     <SelectElement
       text="請選擇查詢的區域："
@@ -49,10 +49,7 @@ const changeDistrict = (value) => {
       @changeValue="changeDistrict"
       class="select-container"
     />
-    <InteractiveMap
-      ref="map"
-      class="district-map-container"
-    />
+    <InteractiveMap ref="map" class="district-map-container" />
   </main>
 </template>
 

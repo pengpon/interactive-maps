@@ -1,8 +1,6 @@
 <template>
-  <span
-    :style="{ 'font-size': props.size + 'px'}"
-    class="material-symbols-rounded"
-  ><slot></slot>
+  <span :style="{ 'font-size': props.size + 'px' }" class="material-symbols-rounded"
+    ><slot></slot>
   </span>
 </template>
 

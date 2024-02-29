@@ -5,7 +5,7 @@ import { statusToast } from '@/helpers/swal'
 
 export const useDistrictStore = defineStore('district', () => {
   const searchDistrict = ref('tucheng')
-  const regionInfos = ref({ })
+  const regionInfos = ref({})
 
   const fetchRegionInfos = async () => {
     let params = searchDistrict.value ? { directory: `${searchDistrict.value}.json` } : ''

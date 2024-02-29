@@ -8,7 +8,7 @@ import 'leaflet.markercluster'
 
 const initialMap = shallowRef(null)
 const geoJson = shallowRef(null)
-const info = L.control();
+const info = L.control()
 let markers = L.markerClusterGroup({ showCoverageOnHover: false })
 let markerList = {}
 let userMarker = ref(null)
@@ -25,7 +25,7 @@ const props = defineProps({
     default: 11
   },
   userAvatar: {
-    type: Object,
+    type: Object
   }
 })
 
@@ -38,7 +38,7 @@ onMounted(() => {
   // 使用 tile layer (openstreetmap)
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(initialMap.value)
 })
 
@@ -47,14 +47,14 @@ const addUserLocation = (location) => {
   let pin = L.icon({
     iconUrl: './runway.png',
     iconSize: [50, 50],
-    iconAnchor: [25, 50],
+    iconAnchor: [25, 50]
   })
   hasSetUserLocation = true
   if (userMarker.value) {
     userMarker.value.setLatLng(location)
     return
   }
-  userMarker.value = L.marker(location, {icon: pin})
+  userMarker.value = L.marker(location, { icon: pin })
   userMarker.value.addTo(initialMap.value).bindTooltip(`
     <div style="width:40px">
       <img style="width:20px;border-radius:50%" src="${props.userAvatar.google}"/>
@@ -64,21 +64,20 @@ const addUserLocation = (location) => {
         onerror="this.onerror=null;this.src='./user404.png';"
       />
     </div>
-    `
-    )
-    initialMap.value.on('click', onMapClick);
+    `)
+  initialMap.value.on('click', onMapClick)
 }
 const onMapClick = (e) => {
   // 清空使用者位置
   if (hasSetUserLocation) {
-    userMarker.value.setLatLng([0,0]);
+    userMarker.value.setLatLng([0, 0])
     markers.clearLayers()
     hasSetUserLocation = false
     emit('clearUserLocation')
     return
   }
   // 放置使用者新的位置
-  let position = [ e.latlng.lat, e.latlng.lng ]
+  let position = [e.latlng.lat, e.latlng.lng]
   addUserLocation(position)
   emit('onUserLocationChange', position)
 }
@@ -89,21 +88,21 @@ const addStopMarker = (data) => {
     iconUrl: './marker-icon.png',
     // iconRetinaUrl: './marker-icon-2x.png',
     shadowUrl: './marker-shadow.png',
-    iiconSize:    [25, 41],
-		iconAnchor:  [12, 41],
-		popupAnchor: [1, -34],
-		tooltipAnchor: [16, -28],
-		shadowSize:  [41, 41]
+    iiconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize: [41, 41]
   })
   for (let i = 0; i < data.length; i++) {
-    let marker = L.marker([data[i].latitude, data[i].longitude], { icon: icon})
+    let marker = L.marker([data[i].latitude, data[i].longitude], { icon: icon })
     marker.bindPopup(`(${data[i].id}) ${data[i].stop_name} (${data[i].name})`)
     markers.addLayer(marker)
     markerList[data[i].id] = marker
   }
 
   // emit id 供列表顯示 marker 資訊
-  markers.on('popupopen', function(e) {
+  markers.on('popupopen', function (e) {
     let makerId = e.popup._content.match(/(?<=^\()\d+(?=\))/)[0]
     emit('onMarkerSelected', Number(makerId))
   })
@@ -112,44 +111,46 @@ const addStopMarker = (data) => {
 
 const zoomToShow = (targetId) => {
   markers.zoomToShowLayer(markerList[targetId], function () {
-    markerList[targetId].openPopup();
+    markerList[targetId].openPopup()
   })
 }
 
 const showAreaInfoOnHover = () => {
   info.onAdd = function () {
     this._div = L.DomUtil.create('div', 'info')
-    this.update();
-    return this._div;
-  };
+    this.update()
+    return this._div
+  }
 
   info.update = function (props) {
-    const contents = props ? `<b>名稱：${props.TxtMemo}</b>/${props.分區}<br/>面積：${props.SHAPE_Area} m<sup>2</sup>` : 'Hover over a area';
-    this._div.innerHTML = `<p>--- 都更區資訊 ---</p>${contents}`;
-  };
+    const contents = props
+      ? `<b>名稱：${props.TxtMemo}</b>/${props.分區}<br/>面積：${props.SHAPE_Area} m<sup>2</sup>`
+      : 'Hover over a area'
+    this._div.innerHTML = `<p>--- 都更區資訊 ---</p>${contents}`
+  }
   info.addTo(initialMap.value)
 }
 
 const highlightFeature = (e) => {
-  const layer = e.target;
+  const layer = e.target
   layer.setStyle({
     weight: 5,
     color: '#666',
     dashArray: '',
     fillOpacity: 0.7
-  });
+  })
 
-  layer.bringToFront();
-  info.update(layer.feature.properties);
+  layer.bringToFront()
+  info.update(layer.feature.properties)
 }
 
 const resetHighlight = (e) => {
-  geoJson.value.resetStyle(e.target);
-    info.update();
+  geoJson.value.resetStyle(e.target)
+  info.update()
 }
 
 const zoomToFeature = (e) => {
-  initialMap.value.fitBounds(e.target.getBounds());
+  initialMap.value.fitBounds(e.target.getBounds())
 }
 
 const onEachFeature = (feature, layer) => {
@@ -157,13 +158,13 @@ const onEachFeature = (feature, layer) => {
     mouseover: highlightFeature,
     mouseout: resetHighlight,
     click: zoomToFeature
-  });
+  })
 }
 
 const addGeoJson = (data) => {
-  geoJson.value = L.geoJson(data, { onEachFeature }).addTo(initialMap.value);
+  geoJson.value = L.geoJson(data, { onEachFeature }).addTo(initialMap.value)
   showAreaInfoOnHover()
-  initialMap.value.fitBounds(geoJson.value.getBounds());
+  initialMap.value.fitBounds(geoJson.value.getBounds())
 }
 
 defineExpose({

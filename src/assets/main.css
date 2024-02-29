@@ -5,8 +5,7 @@
   overflow: scroll;
   margin: 0 auto;
   font-weight: normal;
-  font-family: Inter, "Ming Light", "Microsoft JhengHei", PingFang, Arial,
-    sans-serif, serif;
+  font-family: Inter, 'Ming Light', 'Microsoft JhengHei', PingFang, Arial, sans-serif, serif;
   background-color: var(--nude);
 }
 
