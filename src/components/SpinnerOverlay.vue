@@ -24,7 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0,0,0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .spinner {
@@ -47,7 +47,7 @@
   display: block;
   width: 2px;
   height: 4px;
-  content: " ";
+  content: ' ';
   background: var(--gray-light);
   border-radius: 20px;
 }
@@ -101,5 +101,4 @@
     opacity: 0;
   }
 }
-
 </style>

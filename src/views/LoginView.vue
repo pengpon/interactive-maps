@@ -20,9 +20,15 @@ import GoogleLogin from '../components/GoogleLogin.vue'
 
 .title {
   margin-bottom: 20px;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: 800;
   text-align: center;
   color: var(--black-dark);
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 40px;
+  }
 }
 </style>

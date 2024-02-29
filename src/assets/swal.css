@@ -1,4 +1,7 @@
 .swal2-container {
+  width: 100vw !important;
+  display: flex;
+  justify-content: center;
   padding: 24px !important;
 }
 
@@ -16,15 +19,15 @@
 }
 
 .toast--success {
-  background-color: #55C761 !important;
+  background-color: #55c761 !important;
 }
 
 .toast--error {
-  background-color: #E94F7C !important;
+  background-color: #e94f7c !important;
 }
 
 .toast--info {
-  background-color: #50B1F9 !important;
+  background-color: #50b1f9 !important;
 }
 
 .toast .swal2-icon {
@@ -55,7 +58,6 @@
 .swal2-backdrop-show:has(.toast--loading) {
   width: 100% !important;
 }
-
 
 /* -------------------- Dialog -------------------- */
 .dialog {
@@ -114,11 +116,13 @@
   background-color: #f7f7f7 !important;
 }
 
-.dialog-btn.confirm:hover, .dialog-btn.cancel:hover {
+.dialog-btn.confirm:hover,
+.dialog-btn.cancel:hover {
   background-image: none !important;
 }
 
-.dialog-btn.confirm:focus, .dialog-btn.cancel:focus {
+.dialog-btn.confirm:focus,
+.dialog-btn.cancel:focus {
   box-shadow: unset !important;
 }
 

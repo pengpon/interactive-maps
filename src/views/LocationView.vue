@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, onUnmounted } from 'vue';
+import { ref, onMounted, watch, onUnmounted } from 'vue'
 import { useAuthStore } from '../stores/auth'
 import { useLocationStore } from '../stores/location'
 import { storeToRefs } from 'pinia'
@@ -8,7 +8,8 @@ import LocationTable from '@/components/LocationTable.vue'
 import { statusToast } from '@/helpers/swal'
 
 const locationStore = useLocationStore()
-const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } = storeToRefs(useLocationStore())
+const { userLocation, stopLocations, selectedLocationId, selectedLocationIndex } =
+  storeToRefs(useLocationStore())
 const { avatar } = storeToRefs(useAuthStore())
 const map = ref(null)
 let isLoaded = ref(false)
@@ -21,14 +22,14 @@ onUnmounted(() => {
   userLocation.value = []
 })
 
-watch(userLocation, async() => {
+watch(userLocation, async () => {
   // add user pin
   map.value.addUserLocation(userLocation.value)
   // get cal distance
   await locationStore.fetchStopLocations()
   // add stop marker
-    map.value.addStopMarker(stopLocations.value)
-    isLoaded.value = true
+  map.value.addStopMarker(stopLocations.value)
+  isLoaded.value = true
 })
 
 const onRowSelected = (targetIndex, targetId) => {
@@ -39,7 +40,7 @@ const onRowSelected = (targetIndex, targetId) => {
 
 const onMarkerSelected = (id) => {
   selectedLocationId.value = id
-  selectedLocationIndex.value = stopLocations.value.findIndex(ele => ele.id === id)
+  selectedLocationIndex.value = stopLocations.value.findIndex((ele) => ele.id === id)
 }
 
 const clearUserLocation = () => {
@@ -51,13 +52,12 @@ const onUserLocationChange = (position) => {
   statusToast('success', 'info', `已設置地點`, 3000)
   userLocation.value = position
 }
-
 </script>
 
 <template>
-  <main >
+  <main>
     <Transition>
-      <SpinnerOverlay v-show="!isLoaded"/>
+      <SpinnerOverlay v-show="!isLoaded" />
     </Transition>
     <InteractiveMap
       ref="map"
@@ -65,16 +65,29 @@ const onUserLocationChange = (position) => {
       @onMarkerSelected="onMarkerSelected"
       @onUserLocationChange="onUserLocationChange"
       @clearUserLocation="clearUserLocation"
-      :userAvatar="avatar"/>
-    <LocationTable :data="stopLocations" @onRowSelected="onRowSelected" :seletedIndex="selectedLocationIndex"/>
+      :userAvatar="avatar"
+    />
+    <LocationTable
+      :data="stopLocations"
+      @onRowSelected="onRowSelected"
+      :seletedIndex="selectedLocationIndex"
+    />
   </main>
 </template>
 
 <style>
 .location-map-container #map {
-  width: 80vw;
-  height: 50vh;
+  width: 100%;
+  height: 40vh;
   margin: 0 auto 20px;
+}
+
+@media (min-width: 768px) {
+  .location-map-container #map {
+    width: 80vw;
+    height: 55vh;
+    margin: 0 auto 20px;
+  }
 }
 
 .v-enter-active,

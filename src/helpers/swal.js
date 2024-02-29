@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2'
 
-const dialog = (title, text, confirmText, cancelText='取消') => {
+const dialog = (title, text, confirmText, cancelText = '取消') => {
   return Swal.fire({
     backdrop: `rgba(0, 0, 0, 0.6)`,
     position: 'center',
@@ -42,7 +42,7 @@ const statusToast = (type, icon, title, timer) => {
     showConfirmButton: false,
     customClass: {
       popup: `toast toast--${type}`,
-      title: 'toast-title' ,
+      title: 'toast-title'
     },
     didOpen: (toast) => {
       toast.addEventListener('click', Swal.close)
@@ -78,16 +78,12 @@ const loadingToast = (type, icon, title, timer) => {
     showConfirmButton: false,
     customClass: {
       popup: `toast toast--${type}`,
-      title: 'toast-title' ,
+      title: 'toast-title'
     },
     didOpen: () => {
-      Swal.stopTimer();
+      Swal.stopTimer()
     }
   })
 }
 
-export {
-  dialog,
-  statusToast,
-  loadingToast
-}
+export { dialog, statusToast, loadingToast }

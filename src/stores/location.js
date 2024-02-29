@@ -4,10 +4,8 @@ import api from '@/service/api'
 import { statusToast } from '@/helpers/swal'
 
 export const useLocationStore = defineStore('location', () => {
-  const defaultUserPosition = ref([
-    24.970480365942308,
-    121.44361857661913
-  ])
+  // 預設使用者位置: 總統府
+  const defaultUserPosition = ref([25.040310154316238, 121.51190579542796])
   const userLocation = ref([])
   const stopLocations = ref([])
   const selectedLocationId = ref(null)
@@ -40,7 +38,7 @@ export const useLocationStore = defineStore('location', () => {
     }
 
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(onSuccess, onError )
+      navigator.geolocation.getCurrentPosition(onSuccess, onError)
     }
 
     if (!navigator.geolocation) userLocation.value = defaultUserPosition.value
@@ -59,6 +57,6 @@ export const useLocationStore = defineStore('location', () => {
     selectedLocationIndex,
     fetchStopLocations,
     getUserPosition,
-    $reset,
+    $reset
   }
 })
