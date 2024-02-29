@@ -1,3 +1,6 @@
+@import "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,FILL@20,1";
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap";
+
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
@@ -19,6 +22,16 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  /* custom */
+  --primary-dark-1: #5d38bf;
+  --primary-light-1: #a48afb;
+  --primary-light-2: #ddd6fe;
+  --gray-dark: #475467;
+  --gray-light: #ccc;
+  --black-dark: #101828;
+  --white: #fff;
+  --nude: #fbf8f6;
 }
 
 /* semantic color variables for this project */
@@ -83,4 +96,10 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  width: 80vw;
+  margin: 0 auto;
+  height: 92vh;
 }
