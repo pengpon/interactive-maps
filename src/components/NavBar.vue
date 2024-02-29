@@ -11,14 +11,23 @@
 
 <style scoped>
 .header {
+	position: fixed;
   top: 0;
+	z-index: 999999;
   display: flex;
   width: 100%;
-  height: 8vh;
-  padding-left: 10%;
-  padding-right: 10%;
+  height: 50px;
+  padding-left: 5vw;
+  padding-right: 5vw;
   border-bottom: 1px solid rgba(68, 85, 103, .11);
   background-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding-left: 10vw;
+		padding-right: 10vw;
+  }
 }
 
 a {

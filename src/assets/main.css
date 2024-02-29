@@ -2,7 +2,7 @@
 @import './swal.css';
 
 #app {
-  overflow: hidden;
+  overflow: scroll;
   margin: 0 auto;
   font-weight: normal;
   font-family: Inter, "Ming Light", "Microsoft JhengHei", PingFang, Arial,
@@ -21,5 +21,16 @@ a,
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+main {
+  width: 90vw;
+  margin: 50px auto 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    width: 80vw;
   }
 }

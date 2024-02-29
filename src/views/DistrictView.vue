@@ -60,10 +60,9 @@ const changeDistrict = (value) => {
 .select-container {
   margin-bottom: 10px;
 }
+
 .district-map-container #map {
-  width: 80vw;
-  height: 80vh;
-  margin: 0 auto 20px;
+  height: 70vh;
 }
 
 .select {

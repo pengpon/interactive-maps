@@ -72,9 +72,17 @@ const onUserLocationChange = (position) => {
 
 <style>
 .location-map-container #map {
-  width: 80vw;
-  height: 50vh;
+  width: 100%;
+  height: 40vh;
   margin: 0 auto 20px;
+}
+
+@media (min-width: 768px) {
+  .location-map-container #map {
+    width: 80vw;
+    height: 55vh;
+    margin: 0 auto 20px;
+  }
 }
 
 .v-enter-active,

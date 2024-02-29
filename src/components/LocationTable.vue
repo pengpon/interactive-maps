@@ -6,7 +6,6 @@
   <EasyDataTable
     :headers="headers"
     :items="data"
-    :table-height=200
     fixed-header
     hide-rows-per-page
     @click-row="handleRowClick"
@@ -15,7 +14,7 @@
     :body-row-class-name="bodyRowClassNameFunction"
     table-class-name="customize-table"
   >
-    <template #empty-message>暫無資料</template>
+    <template #empty-message>無資料</template>
   </EasyDataTable>
 </template>
 
@@ -55,12 +54,12 @@ watch(() => props.seletedIndex, (newIndex, oldIndex) => {
 })
 
 const headers = [
-  { text: '編號', value: 'id', sortable: true},
-  { text: '站名', value: 'stop_name'},
+  // { text: '編號', value: 'id'},
+  { text: '站名', value: 'stop_name', fixed: true},
+  { text: '距離', value: 'distance', sortable: true, width: 60},
   { text: '名稱', value: 'name'},
   { text: '緯度', value: 'latitude'},
   { text: '經度', value: 'longitude'},
-  { text: '距離 (m)', value: 'distance', sortable: true},
 ];
 
 const handleRowClick = (item) => {
@@ -76,6 +75,20 @@ const handleRowClick = (item) => {
 .customize-table {
   --easy-table-body-row-hover-font-color: var(--primary-dark-1);
   --easy-table-body-row-hover-background-color: var(--primary-light-2);
+  --easy-table-footer-height: 24px;
+  height: 40vh;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .customize-table {
+    height: 240px;
+  }
+}
+
+.customize-table .vue3-easy-data-table__main {
+  height: 100%;
+  min-height: unset;
 }
 
 .search-container {
