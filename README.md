@@ -3,7 +3,7 @@
 
 使用 Vue 3 開發，搭配 `leaflet.js` 以及 `vue3-easy-data-table` 製作
 
-Demo 網址：https://pengpon.github.io/oakmega-task/#/login
+Demo 網址：https://pengpon.github.io/oakmega-task/
 
 ## 開發說明
 ### 安裝 Package
@@ -40,6 +40,7 @@ API_ENDPOINT = "http://localhost:3002/";
 
 > [!NOTE]
 > Facebook 應用程式若要取得一般用戶資料，必須有**進階存取權限**且為**上線模式**
+>
 > Meta 2023/02/02 說明，開發人員需要進行**商家驗證**，才能取得進階存取權限
 
 ### 地點搜尋
@@ -66,9 +67,9 @@ API_ENDPOINT = "http://localhost:3002/";
 
 
 ### 其他
-- 點擊`連結 Facebook` 按鈕時，若出現 Alert 提醒，可能是 facebook SDK 未成功載入造成，請確認是否有安裝廣告阻擋套件，可嘗試關閉套件或是先按`略過此步驟`。
+- 點擊`連結 Facebook` 按鈕時，若出現 Alert 提醒，可能是 Facebook SDK 未成功載入造成，請確認是否有安裝廣告阻擋套件，可嘗試關閉套件或是略過此連結帳號步驟。
 
-- 輸入 Facebook 帳戶資訊進行登入後，若出現 `無法使用此功能：因為我們正在更新這個應用程式的其他細節，所以這個應用程式目前無法使用 Facebook 登入，請稍後再試。`，係因該用戶不在應用程式的角色清單中，可先略過此步驟。
+- 輸入 Facebook 帳戶資訊進行登入後，若出現**無法使用此功能：因為我們正在更新這個應用程式的其他細節，所以這個應用程式目前無法使用 Facebook 登入，請稍後再試**的訊息，係因該用戶不在應用程式的角色清單中，可在 Alert 中點擊`略過`按鈕或是回到連結社群帳號頁面點擊`略過此步驟`。
 
 ## 參考資料
 
