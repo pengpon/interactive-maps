@@ -16,7 +16,7 @@
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "pinia": "^2.1.7",
-    "sweetalert2": "^11.10.5",
+    "sweetalert2": "^11.6.13",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
     "vue3-easy-data-table": "^1.5.47"
@@ -29,6 +29,6 @@
     "eslint-plugin-vue": "^9.17.0",
     "json-server": "^1.0.0-alpha.23",
     "prettier": "^3.0.3",
-    "vite": "^5.0.11"
+    "vite": "^6.3.2"
   }
 }
