@@ -1,9 +1,8 @@
-# oakmega-task
-新北市都市更新查詢地圖，可查詢附近都更地點或是都更區域
+# Interactive Maps
+都市更新查詢地圖，可查詢附近都更地點或是都更區域
 
 使用 Vue 3 開發，搭配 `leaflet.js` 以及 `vue3-easy-data-table` 製作
 
-Demo 網址：https://pengpon.github.io/oakmega-task/
 
 ## 開發說明
 ### 安裝 Package
@@ -33,7 +32,7 @@ API_ENDPOINT = "http://localhost:3002/";
 ### 部署
 目前專案部署至 GitHub Pages，採用 `GitHub Actions` 部署流程。當 push 至 main 分支時，會觸發 GitHub Actions 執行 `static.yml` 中的內容。
 
-## 使用說明
+<!-- ## 使用說明
 使用者必須先登入 Google 帳號，再連結 Facebook 帳號，才可開始使用
 
 ＊目前應用程式沒有可使用的驗證商家，故先提供**略過選項**，以便使用查詢地圖
@@ -41,7 +40,7 @@ API_ENDPOINT = "http://localhost:3002/";
 > [!NOTE]
 > Facebook 應用程式若要取得一般用戶資料，必須有**進階存取權限**且為**上線模式**
 >
-> Meta 2023/02/02 說明，開發人員需要進行**商家驗證**，才能取得進階存取權限
+> Meta 2023/02/02 說明，開發人員需要進行**商家驗證**，才能取得進階存取權限 -->
 
 ### 地點搜尋
 **使用所在位置查詢附近都更點，若無法取得位置，將使用預設值。**
