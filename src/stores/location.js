@@ -1,7 +1,8 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import api from '@/service/api'
+// import api from '@/service/api'
 import { statusToast } from '@/helpers/swal'
+import calDistanceData from '@/assets/calDistance.json' // For Demo 假資料
 
 export const useLocationStore = defineStore('location', () => {
   // 預設使用者位置: 總統府
@@ -12,14 +13,15 @@ export const useLocationStore = defineStore('location', () => {
   const selectedLocationIndex = ref(null)
 
   const fetchStopLocations = async () => {
-    let sendData = {
-      lat: userLocation.value[0],
-      lng: userLocation.value[1]
-    }
+    // let sendData = {
+    //   lat: userLocation.value[0],
+    //   lng: userLocation.value[1]
+    // }
 
     try {
       // production: POST; dev: GET
-      const data = await api.get(`/calc-distance`, sendData)
+      // const data = await api.get(`/calc-distance`, sendData)
+      const data = calDistanceData // For Demo 假資料
       stopLocations.value = data.result
     } catch (error) {
       console.error(error)
