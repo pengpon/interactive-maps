@@ -3,6 +3,7 @@
 
 使用 Vue 3 開發，搭配 `leaflet.js` 以及 `vue3-easy-data-table` 製作
 
+Demo 網址：https://pengpon.github.io/interactive-maps/#/
 
 ## 開發說明
 ### 安裝 Package
@@ -64,14 +65,13 @@ API_ENDPOINT = "http://localhost:3002/";
 - Hover/點擊區域，會於右上方顯示資訊
   ![info](./docs/image/district-show-info.png)
 
+  <!-- ### 其他
+  - 點擊`連結 Facebook` 按鈕時，若出現 Alert 提醒，可能是 Facebook SDK 未成功載入造成，請確認是否有安裝廣告阻擋套件，可嘗試關閉套件或是略過此連結帳號步驟。
 
-### 其他
-- 點擊`連結 Facebook` 按鈕時，若出現 Alert 提醒，可能是 Facebook SDK 未成功載入造成，請確認是否有安裝廣告阻擋套件，可嘗試關閉套件或是略過此連結帳號步驟。
+  - 輸入 Facebook 帳戶資訊進行登入後，若出現**無法使用此功能：因為我們正在更新這個應用程式的其他細節，所以這個應用程式目前無法使用 Facebook 登入，請稍後再試**的訊息，係因該用戶不在應用程式的角色清單中，可在 Alert 中點擊`略過`按鈕或是回到連結社群帳號頁面點擊`略過此步驟`。 -->
 
-- 輸入 Facebook 帳戶資訊進行登入後，若出現**無法使用此功能：因為我們正在更新這個應用程式的其他細節，所以這個應用程式目前無法使用 Facebook 登入，請稍後再試**的訊息，係因該用戶不在應用程式的角色清單中，可在 Alert 中點擊`略過`按鈕或是回到連結社群帳號頁面點擊`略過此步驟`。
-
-## 參考資料
+<!-- ## 參考資料
 
 [開發人員平台現在需要商家驗證才能取得進階存取權限](https://developers.facebook.com/blog/post/2023/02/01/developer-platform-requiring-business-verification-for-advanced-access/)
 
-[商家驗證](https://developers.facebook.com/docs/development/release/business-verification/)
+[商家驗證](https://developers.facebook.com/docs/development/release/business-verification/) -->
