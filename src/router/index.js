@@ -33,10 +33,11 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to) => {
-  const authStore = useAuthStore()
-  // 完成 google 登入才可進入帳號頁連結 facebook
-  if (authStore.isGoogleAuthenticated && to.name === 'account') return
-  if (!authStore.isAuthenticated && to.name !== 'login') return { name: 'login' }
-})
+// Demo 跳過 google 登入檢查
+// router.beforeEach((to) => {
+//   const authStore = useAuthStore()
+//   // 完成 google 登入才可進入帳號頁連結 facebook
+//   if (authStore.isGoogleAuthenticated && to.name === 'account') return
+//   if (!authStore.isAuthenticated && to.name !== 'login') return { name: 'login' }
+// })
 export default router

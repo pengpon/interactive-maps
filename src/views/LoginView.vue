@@ -4,7 +4,7 @@ import GoogleLogin from '../components/GoogleLogin.vue'
 
 <template>
   <main class="main">
-    <h1 class="title">新北市都市更新查詢地圖 Demo</h1>
+    <h1 class="title">都市更新查詢地圖 Demo</h1>
     <GoogleLogin />
   </main>
 </template>
