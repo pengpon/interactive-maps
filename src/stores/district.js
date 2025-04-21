@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 // import api from '@/service/api'
 import { statusToast } from '@/helpers/swal'
-import geoLocationData from '@/assets/geolocation.json' // For Demo 假資料
+import geoLocationData from '@/assets/geoLocation.json' // For Demo 假資料
 
 export const useDistrictStore = defineStore('district', () => {
   const searchDistrict = ref('tucheng')
